@@ -1,0 +1,23 @@
+{
+  "name": "hangman",
+  "version": "1.0.0",
+  "description": "Node version of Hangman using constructors",
+  "main": "index.js",
+  "dependencies": {
+    "inquirer": "^6.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdamWGrise/node-hangman.git"
+  },
+  "author": "Adam Grise",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdamWGrise/node-hangman/issues"
+  },
+  "homepage": "https://github.com/AdamWGrise/node-hangman#readme"
+}
