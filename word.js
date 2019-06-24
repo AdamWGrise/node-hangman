@@ -9,28 +9,28 @@ function Word(letters) {
             this.letterObjs.push(letterObj);
         };
     };
-    // this.display = function () {
-    //     var displayedWord = '';
-    //     for (var i = 0; i < this.letters.length; i++) {
-    //         var letter = Letter.display(this.letters[i]);
-    //         displayedWord += letter;
-    //     };
-    //     console.log('11' + displayedWord);
-    // };
     this.displayWord = function() {
         var displayWordArr = [];
         for (i = 0 ; i < this.letterObjs.length ; i++) {
-            var displayLetter = this.letterObjs[i].display();
+            var displayLetter = this.letterObjs[i].displayLetter();
             displayWordArr.push(displayLetter);
         };
         console.log(displayWordArr.join('  '));
     };
     this.processGuess = function (inputPlayerGuess) {
+        var guess = inputPlayerGuess.toUpperCase();
         for (var i = 0 ; i < this.letterObjs.length; i++ ) {
-            this.letterObjs[i].guessCheck(inputPlayerGuess);
+            this.letterObjs[i].guessCheck(guess);
         };
     };
-
+    this.displaySolution = function() {
+        var solutionArr = [];
+        for (i = 0 ; i < this.letterObjs.length ; i++) {
+            var solutionLetter = this.letterObjs[i].char;
+            solutionArr.push(solutionLetter);
+        };
+        console.log(solutionArr.join('  '));
+    }
 };
 
 module.exports = Word;
