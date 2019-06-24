@@ -1,18 +1,33 @@
 var Letter = require("./letter.js");
 
 function Word(letters) {
-    this.letters = letters.split();
-    this.display = function () {
-        var displayedWord = '';
-        for (var i = 0; i < this.letters.length; i++) {
-            var letter = Letter.display(this.letters[i]);
-            displayedWord += letter;
+    this.letters = letters.split('');
+    this.letterObjs = [];
+    this.createWord = function(input) {
+        for (i = 0 ; i < input.length ; i++){
+            var letterObj = new Letter (input[i]);
+            this.letterObjs.push(letterObj);
         };
-        console.log(displayedWord);
     };
-    this.processGuess = function (playerGuess) {
-        for (var i = 0 ; i < this.letters.length; i++ ) {
-            Letter.guessCheck(playerGuess);
+    // this.display = function () {
+    //     var displayedWord = '';
+    //     for (var i = 0; i < this.letters.length; i++) {
+    //         var letter = Letter.display(this.letters[i]);
+    //         displayedWord += letter;
+    //     };
+    //     console.log('11' + displayedWord);
+    // };
+    this.displayWord = function() {
+        var displayWordArr = [];
+        for (i = 0 ; i < this.letterObjs.length ; i++) {
+            var displayLetter = this.letterObjs[i].display();
+            displayWordArr.push(displayLetter);
+        };
+        console.log(displayWordArr.join('  '));
+    };
+    this.processGuess = function (inputPlayerGuess) {
+        for (var i = 0 ; i < this.letterObjs.length; i++ ) {
+            this.letterObjs[i].guessCheck(inputPlayerGuess);
         };
     };
 

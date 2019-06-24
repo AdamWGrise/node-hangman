@@ -8,4 +8,13 @@ var Word = require("./word.js");
 
 var roundWord = new Word("swift");
 
-console.log(roundWord);
+////////////////// TESTING
+roundWord.createWord(roundWord.letters);
+
+var guessTest = 'i';
+
+roundWord.processGuess(guessTest);
+
+console.log(roundWord.letterObjs);
+
+roundWord.displayWord();
