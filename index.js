@@ -47,6 +47,7 @@ var runGame = {
             .then(response => {
                 var playerGuess = response.playerGuess;
                 roundWord.processGuess(playerGuess);
+                roundWord.displayWordArr = [];
                 roundWord.displayWord();
                 if (roundWord.guessCorrect === 1) {
                     console.log("Correct letter!");

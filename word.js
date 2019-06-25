@@ -25,6 +25,7 @@ function Word(letters) {
         };
     };
     this.displayWord = function () {
+        displayWordArr = [];
         for (i = 0; i < this.letterObjs.length; i++) {
             var displayLetter = this.letterObjs[i].displayLetter();
             this.displayWordArr.push(displayLetter);
