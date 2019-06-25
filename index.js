@@ -23,51 +23,74 @@ inquirer
             console.log('Starting game...');
             runGame.newRound();
         } else {
-            console.log('Exiting game');
+            console.log('Exiting game...');
+            process.exit();
         }
     });
 
 var runGame = {
-    roundWord:'',
-    newRound:function() {
-        roundWord = new Word(wordBank[Math.floor(Math.random()*wordBank.length)]);
+    roundWord: '',
+    newRound: function () {
+        roundWord = new Word(wordBank[Math.floor(Math.random() * wordBank.length)]);
         roundWord.createWord(roundWord.letters);
-        roundWord.displaySolution();
+        roundWord.displaySolution(); // REMOVE
         this.play();
-        
     },
-    play:function(){
-        console.log("playing game!");
-        var guessTest = 'a';
-        console.log("guess 1: " + guessTest);
-        roundWord.processGuess(guessTest);
-        roundWord.displayWord();
-        guessTest = 't';
-        console.log("guess 2: " + guessTest);
-        roundWord.processGuess(guessTest);
-        roundWord.displayWord();
-        guessTest = 's';
-        console.log("guess 3: " + guessTest);
-        roundWord.processGuess(guessTest);
-        roundWord.displayWord();
-        guessTest = 'e';
-        console.log("guess 4: " + guessTest);
-        roundWord.processGuess(guessTest);
-        roundWord.displayWord();
+    play: function () {
+        console.log("Guesses left: " + roundWord.guessesLeft);
+        inquirer
+            .prompt([{
+                type: 'input',
+                name: 'playerGuess',
+                message: 'Guess a letter: ',
+            }])
+            .then(response => {
+                var playerGuess = response.playerGuess;
+                roundWord.processGuess(playerGuess);
+                roundWord.displayWord();
+                if (roundWord.guessCorrect === 1) {
+                    console.log("Correct letter!");
+                } else {
+                    console.log("Incorrect letter!");
+                }
+                if (roundWord.guessesLeft === 0) {
+                    console.log("Bummer! You're out of turns. The correct word was:\n");
+                    roundWord.displaySolution();
+                    console.log('');
+                    this.newGameCheck();
+                } else if (roundWord.displayWordArr.includes("_")) {
+                    this.play();
+                } else {
+                    this.youWin();
+                }
+            });
+    },
+
+    newGameCheck: function () {
+        inquirer
+            .prompt([{
+                type: 'list',
+                name: 'startGame',
+                message: 'Play again?',
+                choices: [
+                    "Let's do this!",
+                    "No thanks, I'm good."
+                ]
+            }])
+            .then(answers => {
+                console.log(answers);
+                if (answers.startGame === "Let's do this!") {
+                    console.log('Starting game...');
+                    this.newRound();
+                } else {
+                    console.log('Exiting game...');
+                    process.exit();
+                }
+            });
+    },
+
+    youWin: function () {
+        console.log("Congrats! You won this round!");
+        this.newGameCheck();
     }
 };
-
-/*
-////////////////// TESTING
-
-var guessTest = 'i';
-
-
-var guessTest2 = 't';
-
-roundWord.processGuess(guessTest2);
-roundWord.displayWord();
-
-
-console.log(roundWord.letterObjs);
-*/
